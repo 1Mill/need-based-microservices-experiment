@@ -3,6 +3,8 @@ version: '3'
 services:
   consumer:
     build: ./src/consumer
+    depends_on: 
+      - rapids
     ports: 
       - 8080:8080
     volumes: 
