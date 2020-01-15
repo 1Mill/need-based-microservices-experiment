@@ -8,6 +8,8 @@ const kafka = new Kafka({
 const producer = kafka.producer()
 
 const run = async () => {
+        setTimeout(() => {}, 1000)
+
         console.info('connecting...')
         await producer.connect()
         console.info('connected')
