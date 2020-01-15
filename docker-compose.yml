@@ -1,6 +1,15 @@
 version: '3'
 
 services:
+  consumer:
+    build: ./src/consumer
+    depends_on: 
+      - rapids
+    ports: 
+      - 8081:8080
+    volumes: 
+      - ./src/consumer:/app
+
   producer:
     build: ./src/producer
     depends_on: 
