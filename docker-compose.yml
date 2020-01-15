@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  admin:
+    build: ./src/admin
+    depends_on:
+      - rapids
+    volumes: 
+      - ./src/admin:/app
+  
   consumer:
     build: ./src/consumer
     depends_on: 
