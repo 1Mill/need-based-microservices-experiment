@@ -2,7 +2,7 @@ FROM node:13
 
 WORKDIR /app
 
-COPY package.json .
+COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . .
@@ -12,4 +12,4 @@ ENV PORT 8080
 
 EXPOSE 8080
 
-CMD [ "node", "server.js" ]
+CMD [ "node", "index" ]
