@@ -2,7 +2,6 @@
 The files in this folder are used to mess around with admin, producers, and consumers.
 
 # Setup
-1.
 1. Run `docker-compose run standalone npm install`
 1. Run `docker-compose build`
 1. Run `docker-compose up rapids`
