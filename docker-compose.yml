@@ -1,31 +1,7 @@
 version: '3'
 
 services:
-  admin:
-    build: ./src/admin
-    depends_on:
-      - rapids
-    volumes: 
-      - ./src/admin:/app
-  
-  consumer:
-    build: ./src/consumer
-    depends_on: 
-      - rapids
-    ports: 
-      - 8081:8080
-    volumes: 
-      - ./src/consumer:/app
-
-  producer:
-    build: ./src/producer
-    depends_on: 
-      - rapids
-    ports: 
-      - 8080:8080
-    volumes: 
-      - ./src/producer:/app
-  
+  # Infastructure: The foundational event stream
   rapids:
     image: confluentinc/cp-kafka:5.3.2
     depends_on: 
@@ -45,3 +21,30 @@ services:
     image: zookeeper:3.5
     ports: 
       - 2181:2181
+
+  # Standalone: isolated service to mess around with admin, producers, and consumers concepts
+  standalone:
+    build: ./src/standalone
+    depends_on:
+      - rapids
+    volumes: 
+      - ./src/standalone:/app
+  
+  # Microservices
+  consumer:
+    build: ./src/consumer
+    depends_on: 
+      - rapids
+    ports: 
+      - 8081:8080
+    volumes: 
+      - ./src/consumer:/app
+
+  producer:
+    build: ./src/producer
+    depends_on: 
+      - rapids
+    ports: 
+      - 8080:8080
+    volumes: 
+      - ./src/producer:/app
