@@ -1,7 +1,7 @@
 const { Kafka } = require('kafkajs');
 
 const kafka = new Kafka({
-        brokers: [ 'http://rapids:9092' ],
+        brokers: [ 'rapids:9092' ],
         clientId: 'my-producer-app-name',
 });
 
