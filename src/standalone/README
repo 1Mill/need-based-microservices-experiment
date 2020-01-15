@@ -1,0 +1,10 @@
+# Overview
+The files in this folder are used to mess around with admin, producers, and consumers.
+
+# Setup
+1. Run `docker-compose build`
+1. Run `docker-compose run standalone npm install`
+1. Run `docker-compose up rapids`
+1. In a new terminal, run `docker-compose run standalone node admin; node consumer`
+1. In a new terminal, run `docker-compose run standalone sh` to enter into the `standalone` service
+1. Inside the `standalone` service, run `node producer my-name`. This should cause text to appear within the `consumer` terminal 
