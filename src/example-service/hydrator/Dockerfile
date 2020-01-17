@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 8080
 
-RUN ["node", "index"]
+RUN ["node", "src/index"]
