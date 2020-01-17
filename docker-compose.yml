@@ -13,8 +13,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_INTERNAL:PLAINTEXT,LISTENER_EXTERNAL:PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    ports: 
-      - 29092:29092
+    ports:
       - 9092:9092
   
   zookeeper:
@@ -27,5 +26,13 @@ services:
     build: ./src/standalone
     depends_on:
       - rapids
-    volumes: 
+    volumes:
       - ./src/standalone:/app
+
+  # Application Hydrator: Transfer messages from rapids to river
+  example-service_hydrator:
+    build: ./src/example-service/hydrator
+    depends_on:
+      - rapids
+    volumes:
+      - ./src/example-service/hydrator:/app
