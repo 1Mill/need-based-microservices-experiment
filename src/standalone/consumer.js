@@ -3,7 +3,7 @@ const { Kafka } = require('kafkajs')
 const run = async () => {
         try {
                 const kafka = new Kafka({
-                        brokers: ['rapids:29092'],
+                        brokers: ['core_rapids:29092'],
                         clientId: 'my-example-app',
                 })
                 const consumer = kafka.consumer({ groupId: 'test-group' })

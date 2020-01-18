@@ -6,7 +6,7 @@ const partition = value[0] < 'N' ? 0 : 1
 const run = async () => {
         try {
                 const kafka = new Kafka({
-                        brokers: ['rapids:29092'],
+                        brokers: ['core_rapids:29092'],
                         clientId: 'my-example-app',
                 })
                 const producer = kafka.producer()
