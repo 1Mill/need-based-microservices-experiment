@@ -21,16 +21,16 @@ services:
     ports: 
       - 2181:2181
 
-  core_schema:
-    image: confluentinc/cp-schema-registry:5.4.0
-    depends_on: 
-      - core_rapids
-      - core_zookeeper
-    environment: 
-      SCHEMA_REGISTRY_HOST_NAME: core_schema
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: core_rapids:29092
-    ports: 
-      - 8081:8081
+  # core_schema:
+  #   image: confluentinc/cp-schema-registry:5.4.0
+  #   depends_on: 
+  #     - core_rapids
+  #     - core_zookeeper
+  #   environment: 
+  #     SCHEMA_REGISTRY_HOST_NAME: core_schema
+  #     SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: core_rapids:29092
+  #   ports: 
+  #     - 8081:8081
 
   # Standalone: isolated service to mess around with admin, producers, and consumers concepts
   standalone:
