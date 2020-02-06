@@ -4,9 +4,9 @@ services:
   # Infastructure: The foundational event stream
   core_rapids:
     image: confluentinc/cp-kafka:5.3.2
-    depends_on: 
+    depends_on:
       - core_zookeeper
-    environment: 
+    environment:
       KAFKA_ADVERTISED_LISTENERS: LISTENER_INTERNAL://core_rapids:29092,LISTENER_EXTERNAL://localhost:9092
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_INTERNAL
       KAFKA_LISTENERS: LISTENER_INTERNAL://core_rapids:29092,LISTENER_EXTERNAL://localhost:9092
@@ -15,19 +15,19 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: core_zookeeper:2181
     ports:
       - 9092:9092
-  
+
   core_zookeeper:
     image: zookeeper:3.5
 
   # core_schema:
   #   image: confluentinc/cp-schema-registry:5.4.0
-  #   depends_on: 
+  #   depends_on:
   #     - core_rapids
   #     - core_zookeeper
-  #   environment: 
+  #   environment:
   #     SCHEMA_REGISTRY_HOST_NAME: core_schema
   #     SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: core_rapids:29092
-  #   ports: 
+  #   ports:
   #     - 8081:8081
 
   # Standalone: isolated service to mess around with admin, producers, and consumers concepts
