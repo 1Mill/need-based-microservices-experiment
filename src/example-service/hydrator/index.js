@@ -10,6 +10,17 @@ const main = async () => {
                 await admin.connect()
                 await admin.createTopics({ topics: TOPICS })
                 await admin.disconnect()
+
+                const consumer = kafka.consumer({ groupId: 'example-service' })
+                await consumer.connect()
+                const subscriberTopics = TOPICS.map(topic => ({ fromBeginning: true, topic }))
+                await consumer.subscribe(subscriberTopics)
+                await consumer.run({
+                        eachMessage: async ({ topic, partition, message }) => {
+                                const message = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`
+                                console.log(message)
+                        }
+                })
         } catch(err) {
                 console.error(err)
         }
