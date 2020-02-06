@@ -17,8 +17,8 @@ const main = async () => {
                 await consumer.subscribe(subscriberTopics)
                 await consumer.run({
                         eachMessage: async ({ topic, partition, message }) => {
-                                const message = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`
-                                console.log(message)
+                                const content = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`
+                                console.log(content)
                         }
                 })
         } catch(err) {
