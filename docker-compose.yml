@@ -49,5 +49,7 @@ services:
   # Web application
   client_web:
     build: ./src/client/web
+    ports:
+      - 8080:8080
     volumes:
       - ./src/client/web:/app
