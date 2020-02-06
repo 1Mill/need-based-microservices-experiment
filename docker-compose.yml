@@ -45,3 +45,9 @@ services:
       - core_rapids
     volumes:
       - ./src/example-service/hydrator:/app
+
+  # Web application
+  client_web:
+    build: ./src/client/web
+    volumes:
+      - ./src/client/web:/app
