@@ -15,25 +15,4 @@ const main = async () => {
         }
 }
 
-const runRapids = async () => {
-        try {
-                const kafka = new Kafka({
-                        brokers: [
-                                'core_rapids:29092',
-                        ],
-                        clientId: 'my-example-service-hydrator',
-                })
-
-                const admin = kafka.admin()
-                console.log("connecting to rapids...")
-                await admin.connect()
-                await admin.createTopics({ topics: TOPICS })
-                await admin.disconnect()
-        } catch (err) {
-                console.error(err)
-        } finally {
-                
-        }
-}
-
 main()
