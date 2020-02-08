@@ -49,6 +49,8 @@ services:
   # Web application
   client_web:
     build: ./src/client/web
+    depends_on:
+      - core_rapids
     ports:
       - 8080:8080
     volumes:
