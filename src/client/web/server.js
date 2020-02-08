@@ -1,5 +1,5 @@
-const express = require('express')
-const path = require('path')
+import express from 'express'
+import path from 'path'
 
 const DIRECTORY_NAME = __dirname
 const HTML_FILE = path.join(DIRECTORY_NAME, 'index.html')
