@@ -1,7 +1,9 @@
 const express = require('express')
+const path = require('path')
+
 const server = express()
 
 server.get('/', (req, res) => {
-	res.send('Hello world!')
+	res.sendFile(path.join(__dirname + '/index.html'))
 })
 server.listen(8080)
