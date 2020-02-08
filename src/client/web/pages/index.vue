@@ -9,6 +9,8 @@
 </template>
 
 <script>
+const { kafka } = require('kafkajs')
+
 export default {
 }
 </script>
