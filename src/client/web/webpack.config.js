@@ -4,6 +4,13 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
+	devServer: {
+		host: '0.0.0.0',
+		hot: true,
+		inline: true,
+		port: 8080,
+		watchOptions: { poll: true },
+	},
 	entry: { server: './server.js' },
 	externals: [ nodeExternals() ],
 	module: {
