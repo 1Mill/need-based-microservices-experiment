@@ -1,5 +1,4 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const nodeExternals = require('webpack-node-externals')
 const path = require('path')
 const webpack = require('webpack')
 
@@ -18,7 +17,6 @@ module.exports = {
 		main: './src/js/index.js',
 		server: './src/server/index.js',
 	},
-	externals: [ nodeExternals() ],
 	module: {
 		rules: [
 			{
