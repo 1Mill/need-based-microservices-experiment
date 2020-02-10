@@ -1,6 +1,8 @@
-const HtmlWebPackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
+
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const OUTPUT_PATH = path.resolve(__dirname, 'dist')
 
@@ -20,15 +22,19 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				// Load the javascript into the HTML template using entry point
+				test: /\.html$/,
+				use: [{ loader: 'html-loader' }],
+			},
+			{
 				// Transpile ES6-8 to ES5
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: { loader: 'babel-loader' },
 			},
 			{
-				// Load the javascript into the HTML template using entry point
-				test: /\.html$/,
-				use: [{ loader: 'html-loader' }],
+				test: /\.vue$/,
+				use: { loader: 'vue-loader' },
 			},
 		],
 	},
@@ -42,7 +48,8 @@ module.exports = {
 			excludeChunks: [ 'server' ],
 			filename: './index.html',
 			template: './src/html/index.html',
-		})
+		}),
+		new VueLoaderPlugin(),
 	],
 	target: 'node',
 	output: {
