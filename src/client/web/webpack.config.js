@@ -14,7 +14,10 @@ module.exports = {
 		port: 8080,
 		watchOptions: { poll: true },
 	},
-	entry: { server: './src/server/index.js' },
+	entry: {
+		main: './src/js/index.js',
+		server: './src/server/index.js',
+	},
 	externals: [ nodeExternals() ],
 	module: {
 		rules: [
