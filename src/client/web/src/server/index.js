@@ -6,7 +6,7 @@ const HTML_FILE = path.join(DIRECTORY_NAME, 'index.html')
 
 const server = express()
 server.use(express.static(DIRECTORY_NAME))
-server.get('*', (req, res) => {
+server.get('/', (req, res) => {
 	res.sendFile(HTML_FILE)
 })
 server.listen(process.env.PORT)
