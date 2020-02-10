@@ -1,17 +1,20 @@
-const htmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const path = require('path')
 const webpack = require('webpack')
 
+const OUTPUT_PATH = path.resolve(__dirname, 'dist')
+
 module.exports = {
 	devServer: {
+		contentBase: OUTPUT_PATH,
 		host: '0.0.0.0',
 		hot: true,
 		inline: true,
 		port: 8080,
 		watchOptions: { poll: true },
 	},
-	entry: { server: './server.js' },
+	entry: { server: './src/server/index.js' },
 	externals: [ nodeExternals() ],
 	module: {
 		rules: [
@@ -34,16 +37,16 @@ module.exports = {
 		__filename: false,
 	},
 	plugins: [
-		new htmlWebpackPlugin({
+		new HtmlWebPackPlugin({
 			excludeChunks: [ 'server' ],
 			filename: './index.html',
-			template: './index.html',
+			template: './src/html/index.html',
 		})
 	],
 	target: 'node',
 	output: {
 		filename: '[name].js',
-		path: path.join(__dirname, 'dist'),
+		path: OUTPUT_PATH,
 		publicPath: '/',
 	},
 }
