@@ -12,7 +12,8 @@
   "description": "",
   "dependencies": {
     "express": "^4.17.1",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-server-renderer": "^2.6.11"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
