@@ -10,6 +10,7 @@ server.get('*', (req, res) => {
 	const app = createApp({ url: req.url })
 	renderer.renderToString(app, (err, html) => {
 		if (err) {
+			console.error(err)
 			res.status(500).end('Internal server error')
 			return
 		}
