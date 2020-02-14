@@ -8,12 +8,14 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist')
 
 module.exports = {
 	devServer: {
+		compress: true,
 		contentBase: OUTPUT_PATH,
 		host: '0.0.0.0',
 		hot: true,
 		inline: true,
+		open: true,
 		port: 8080,
-		watchOptions: { poll: true },
+		watchOptions: { ignored: /node_modules/, poll: true },
 	},
 	entry: {
 		main: './src/js/index.js',
