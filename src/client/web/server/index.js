@@ -1,12 +1,27 @@
+import Vue from 'vue'
 import express from 'express'
 import path from 'path'
-
-const DIRECTORY_NAME = __dirname
-const HTML_FILE = path.join(DIRECTORY_NAME, 'index.html')
+import { createRenderer } from 'vue-server-renderer'
 
 const server = express()
-server.use(express.static(DIRECTORY_NAME))
-server.get('/', (req, res) => {
-	res.sendFile(HTML_FILE)
+server.get('*', (req, res) => {
+	const app = new Vue({
+		data: { url: req.url },
+		template: `<div>The URL is: {{ url }}</div>`,
+	})
+
+	createRenderer().renderToString(app, (err, html) => {
+		if (err) {
+			res.status(500).end('Internal server error')
+			return
+		}
+		res.end(`
+			<!DOCTYPE html>
+			<html lang="en">
+			<head><title>Hello</title></head>
+			<body>${html}</body>
+			</html>
+		`)
+	})
 })
 server.listen(process.env.PORT)
