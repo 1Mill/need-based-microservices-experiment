@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import express from 'express'
-import path from 'path'
 import { createRenderer } from 'vue-server-renderer'
 
 const server = express()
