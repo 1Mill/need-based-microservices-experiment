@@ -1,9 +1,9 @@
 import Vue from 'vue'
+import App from './app.vue'
 
-const createApp = (context) => {
+const createApp = () => {
 	return new Vue({
-		data: { url: context.url },
-		template: `<div>The visisted URL is: {{ url }}</div>`,
+		render: h => h(App),
 	})
 }
 

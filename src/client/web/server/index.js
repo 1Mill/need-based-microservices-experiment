@@ -7,7 +7,7 @@ import createApp from '../src/app.js'
 const renderer = createRenderer()
 const server = express()
 server.get('*', (req, res) => {
-	const app = createApp({ url: req.url })
+	const app = createApp()
 	renderer.renderToString(app, (err, html) => {
 		if (err) {
 			console.error(err)
