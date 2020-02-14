@@ -21,7 +21,7 @@ module.exports = {
 	},
 	entry: {
 		main: './src/main.js',
-		server: './src/server/index.js',
+		server: './server/index.js',
 	},
 	module: {
 		rules: [
