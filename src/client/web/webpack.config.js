@@ -20,7 +20,7 @@ module.exports = {
 		watchOptions: { ignored: /node_modules/, poll: true },
 	},
 	entry: {
-		main: './src/js/index.js',
+		main: './src/main.js',
 		server: './src/server/index.js',
 	},
 	module: {
@@ -51,7 +51,7 @@ module.exports = {
 		new HtmlWebPackPlugin({
 			excludeChunks: [ 'server' ],
 			filename: './index.html',
-			template: './src/html/index.html',
+			template: './src/index.html',
 		}),
 		new VueLoaderPlugin(),
 	],
