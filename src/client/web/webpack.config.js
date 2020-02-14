@@ -3,7 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+// const HtmlWebPackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const OUTPUT_PATH = path.resolve(__dirname, 'dist')
@@ -20,7 +20,6 @@ module.exports = {
 		watchOptions: { ignored: /node_modules/, poll: true },
 	},
 	entry: {
-		main: './src/main.js',
 		server: './server/index.js',
 	},
 	module: {
@@ -48,11 +47,11 @@ module.exports = {
 		__filename: false,
 	},
 	plugins: [
-		new HtmlWebPackPlugin({
-			excludeChunks: [ 'server' ],
-			filename: './index.html',
-			template: './src/index.html',
-		}),
+		// new HtmlWebPackPlugin({
+		// 	excludeChunks: [ 'server' ],
+		// 	filename: './index.html',
+		// 	template: './src/index.html',
+		// }),
 		new VueLoaderPlugin(),
 	],
 	target: 'node',
