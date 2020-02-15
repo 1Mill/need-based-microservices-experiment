@@ -15,6 +15,6 @@
     "nuxt": "^2.11.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.0.0"
+    "@nuxtjs/vuetify": "^1.10.3"
   }
 }
