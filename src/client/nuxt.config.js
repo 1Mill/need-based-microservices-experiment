@@ -53,6 +53,8 @@ export default {
 		** You can extend webpack config here
 		*/
 		extend (config, ctx) {
+			// ! Use default node implementation, not webpack implementation
+			config.node = { net: 'empty', tls: 'empty' }
 		},
 	},
 }
