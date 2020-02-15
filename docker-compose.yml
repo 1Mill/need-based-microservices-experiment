@@ -47,11 +47,11 @@ services:
       - ./src/example-service/hydrator:/app
 
   # Web application
-  client_web:
-    build: ./src/client/web
+  client:
+    build: ./src/client
     depends_on:
       - core_rapids
     ports:
       - 8080:8080
     volumes:
-      - ./src/client/web:/app
+      - ./src/client:/app
