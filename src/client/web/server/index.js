@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import express from 'express'
 import { createRenderer } from 'vue-server-renderer'
 
