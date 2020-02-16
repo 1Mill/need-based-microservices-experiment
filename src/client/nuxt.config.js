@@ -37,7 +37,11 @@ export default {
 	** Nuxt.js modules
 	*/
 	modules: [
+		'@nuxtjs/proxy',
 	],
+	proxy: {
+		'/rapids': 'core_rapids:29092',
+	},
 	/*
 	** vuetify module configuration
 	** https://github.com/nuxt-community/vuetify-module
@@ -54,7 +58,7 @@ export default {
 		*/
 		extend (config, ctx) {
 			// ! Use default node implementation, not webpack implementation
-			config.node = { net: 'empty', tls: 'empty' }
+			// config.node = { net: 'empty', tls: 'empty' }
 		},
 	},
 }

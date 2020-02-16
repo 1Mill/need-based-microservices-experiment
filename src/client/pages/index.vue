@@ -10,8 +10,8 @@
 <script>
 export default {
 	methods: {
-		async createTodo() {
-			console.log("Creating...")
+		createTodo() {
+			this.$store.commit('CREATE')
 		},
 	},
 }
