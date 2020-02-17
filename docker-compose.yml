@@ -54,4 +54,5 @@ services:
     ports:
       - 8080:8080
     volumes:
+      - ./src/client/node_modules:/app/node_modules
       - ./src/client:/app
