@@ -57,9 +57,13 @@ services:
       - ./src/client/node_modules:/app/node_modules
       - ./src/client:/app
 
+  client-pool:
+    image: redis:5-alpine
+
   client-pub:
     build: ./src/client-pub
     depends_on:
+      - client-pool
       - core_rapids
     volumes:
       - ./src/client-pub/node_modules:/app/node_modules
