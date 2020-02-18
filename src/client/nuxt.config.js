@@ -40,7 +40,6 @@ export default {
 		'@nuxtjs/proxy',
 	],
 	proxy: {
-		'/rapids': 'core_rapids:29092',
 	},
 	/*
 	** vuetify module configuration
