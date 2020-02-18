@@ -11,7 +11,7 @@
 export default {
 	methods: {
 		createTodo() {
-			this.$store.commit('CREATE')
+			console.log("Creating todo...")
 		},
 	},
 }
