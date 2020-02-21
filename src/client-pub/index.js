@@ -15,3 +15,7 @@ io.on('connect', (socket) => {
 		console.log('User disconnected');
 	});
 });
+
+http.listen(process.env.PORT, () => {
+	console.log(`listening on *:${process.env.PORT}`);
+})
