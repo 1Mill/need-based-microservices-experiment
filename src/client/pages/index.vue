@@ -8,10 +8,15 @@
 </template>
 
 <script>
+import io from 'socket.io-client';
+
+const SOCKET = io('http://localhost:8081');
+
 export default {
 	methods: {
 		createTodo() {
-			console.log("Creating todo...")
+			console.log('Creating todo...');
+			SOCKET.emit('testing');
 		},
 	},
 }
