@@ -65,6 +65,8 @@ services:
     depends_on:
       - client-pool
       - core_rapids
+    ports:
+      - 8081:8080
     volumes:
       - ./src/client-pub/node_modules:/app/node_modules
       - ./src/client-pub:/app
