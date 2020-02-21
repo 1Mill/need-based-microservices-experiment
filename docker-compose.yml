@@ -49,6 +49,8 @@ services:
   # Web application
   client:
     build: ./src/client
+    environment:
+      CLIENT_PUB_URL: http://localhost:8081/
     depends_on:
       - client-pub
     ports:

@@ -10,7 +10,7 @@
 <script>
 import io from 'socket.io-client';
 
-const SOCKET = io('http://localhost:8081');
+const SOCKET = io(process.env.CLIENT_PUB_URL);
 
 export default {
 	methods: {

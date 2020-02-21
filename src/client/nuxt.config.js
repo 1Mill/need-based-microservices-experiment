@@ -1,5 +1,6 @@
 export default {
 	mode: 'universal',
+	env: { ...process.env },
 	/*
 	** Headers of the page
 	*/
