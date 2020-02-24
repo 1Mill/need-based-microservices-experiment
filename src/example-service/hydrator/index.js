@@ -9,12 +9,12 @@ const main = async () => {
 		})
 		const admin = kafka.admin()
 		await admin.connect()
-		await admin.createTopics({ topics: TOPICS })
+		await admin.createTopics({ topics: TOPICS.map(topic => ({ topic })) })
 		await admin.disconnect()
 
 		const consumer = kafka.consumer({ groupId: 'example-serivce' })
 		await consumer.connect()
-		TOPICS.map(({ topic }) => topic).forEach(topic => {
+		TOPICS.forEach(async (topic) => {
 			await consumer.subscribe({
 				fromBeginning: true,
 				topic,
