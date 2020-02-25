@@ -52,7 +52,7 @@ services:
     environment:
       CLIENT_EVENTS_ASK_URL: http://localhost:8081/
     depends_on:
-      - client-pub
+      - client-ask
     ports:
       - 8080:8080
     volumes:
