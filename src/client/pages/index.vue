@@ -8,15 +8,13 @@
 </template>
 
 <script>
-import io from 'socket.io-client';
-
-const SOCKET = io(process.env.CLIENT_PUB_URL);
+import { Ask } from '@/lib/events';
 
 export default {
 	methods: {
 		createTodo() {
 			console.log('Creating todo...');
-			SOCKET.emit('testing');
+			Ask('testing');
 		},
 	},
 }
