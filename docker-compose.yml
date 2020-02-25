@@ -62,13 +62,13 @@ services:
   client-pool:
     image: redis:5-alpine
 
-  client-pub:
-    build: ./src/client-pub
+  client-ask:
+    build: ./src/client-ask
     depends_on:
       - client-pool
       - core_rapids
     ports:
       - 8081:8080
     volumes:
-      - ./src/client-pub/node_modules:/app/node_modules
-      - ./src/client-pub:/app
+      - ./src/client-ask/node_modules:/app/node_modules
+      - ./src/client-ask:/app
