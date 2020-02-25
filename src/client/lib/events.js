@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-const SOCKET = io(process.env.CLIENT_PUB_URL);
+const SOCKET = io(process.env.CLIENT_EVENTS_ASK_URL);
 
 export const Answer = async (event) => {
 	try {
