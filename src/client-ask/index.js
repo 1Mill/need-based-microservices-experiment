@@ -1,10 +1,10 @@
 const http = require('http').createServer();
 const io = require('socket.io')(http);
-
 const redisAdapter = require('socket.io-redis');
+const { Kafka } = require('kafkajs');
+
 io.adapter(redisAdapter({ host: 'client-pool', port: 6379 }));
 
-const { Kafka } = require('kafkajs');
 const run = async () => {
 	try {
 		const kafka = new Kafka({
