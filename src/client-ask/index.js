@@ -7,30 +7,25 @@ const io = require('socket.io')(server);
 io.adapter(ioRedisAdapter({ host: 'client-pool', port: 6379 }));
 io.use(ioMiddlewareWildcard);
 
-const run = async () => {
-	try {
-		const kafka = new Kafka({
-			brokers: [ 'core_rapids:29092' ],
-			clientId: 'client-pub',
-		});
-		const producer = kafka.producer();
-		await producer.connect();
-		const res = await producer.send({
-			topic: 'db.todo.created',
-			messages: [ { value: 'something' } ],
-		});
-	} catch (err) {
-		console.error(err);
-	}
-}
+const KAFKA = new Kafka({
+	brokers: ['core_rapids:29092'],
+	clientId: 'client-pub',
+});
+const PRODUCER = KAFKA.producer();
 
 io.on('connect', (socket) => {
-	socket.on('*', async () => {
-		console.log('ANY EVENT');
-	});
-
-	socket.on('testing', async () => {
-		run();
+	socket.on('*', async (packet) => {
+		try {
+			const [ topic ] = packet.data;
+			await PRODUCER.connect();
+			await PRODUCER.send({
+				messages: [{ value: 'something' }],
+				topic,
+			});
+			await PRODUCER.disconnect();
+		} catch (err) {
+			console.error(err);
+		}
 	});
 });
 

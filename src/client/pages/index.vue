@@ -14,7 +14,7 @@ export default {
 	methods: {
 		createTodo() {
 			console.log('Creating todo...');
-			Ask('testing');
+			Ask('db.todo.created');
 		},
 	},
 };
