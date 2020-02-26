@@ -9,8 +9,8 @@ io.adapter(ioRedisAdapter({ host: 'client-pool', port: 6379 }));
 io.use(ioMiddlewareWildcard);
 
 const kafka = new Kafka({
-	brokers: ['core_rapids:29092'],
-	clientId: 'client-pub',
+	brokers: [process.env.CORE_RAPIDS_URL],
+	clientId: 'client-ask',
 });
 const producer = kafka.producer();
 

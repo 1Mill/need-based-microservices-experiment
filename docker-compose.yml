@@ -61,6 +61,8 @@ services:
 
   client-ask:
     build: ./src/client-ask
+    environment:
+      CORE_RAPIDS_URL: core_rapids:29092
     depends_on:
       - client-pool
       - core_rapids
