@@ -1,9 +1,11 @@
 const server = require('http').createServer();
-const io = require('socket.io')(server);
-const redisAdapter = require('socket.io-redis');
 const { Kafka } = require('kafkajs');
+const ioMiddlewareWildcard = require('socketio-wildcard')();
+const ioRedisAdapter = require('socket.io-redis');
 
-io.adapter(redisAdapter({ host: 'client-pool', port: 6379 }));
+const io = require('socket.io')(server);
+io.adapter(ioRedisAdapter({ host: 'client-pool', port: 6379 }));
+io.use(ioMiddlewareWildcard);
 
 const run = async () => {
 	try {
@@ -17,21 +19,18 @@ const run = async () => {
 			topic: 'db.todo.created',
 			messages: [ { value: 'something' } ],
 		});
-		console.log('Respond: ', res);
 	} catch (err) {
 		console.error(err);
 	}
 }
 
 io.on('connect', (socket) => {
-	console.log('User connected');
+	socket.on('*', async () => {
+		console.log('ANY EVENT');
+	});
 
 	socket.on('testing', async () => {
 		run();
-	});
-
-	socket.on('disconnect', () => {
-		console.log('User disconnected');
 	});
 });
 
