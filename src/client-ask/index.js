@@ -1,5 +1,5 @@
-const http = require('http').createServer();
-const io = require('socket.io')(http);
+const server = require('http').createServer();
+const io = require('socket.io')(server);
 const redisAdapter = require('socket.io-redis');
 const { Kafka } = require('kafkajs');
 
@@ -35,6 +35,6 @@ io.on('connect', (socket) => {
 	});
 });
 
-http.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
 	console.log(`listening on *:${process.env.PORT}`);
 })
