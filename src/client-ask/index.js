@@ -1,9 +1,10 @@
-const server = require('http').createServer();
-const { Kafka } = require('kafkajs');
 const ioMiddlewareWildcard = require('socketio-wildcard')();
 const ioRedisAdapter = require('socket.io-redis');
+const server = require('http').createServer();
+const { Kafka } = require('kafkajs');
 
 const io = require('socket.io')(server);
+
 io.adapter(ioRedisAdapter({ host: 'client-pool', port: 6379 }));
 io.use(ioMiddlewareWildcard);
 
