@@ -20,7 +20,7 @@ io.on('connect', (socket) => {
 			const [ topic ] = packet.data;
 			await producer.connect();
 			await producer.send({
-				messages: [{ value: 'something' }],
+				messages: [{ headers: { socketId: socket.id }, value: null }],
 				topic,
 			});
 			await producer.disconnect();

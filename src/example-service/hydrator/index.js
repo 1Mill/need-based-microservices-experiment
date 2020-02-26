@@ -22,7 +22,7 @@ const main = async () => {
 		})
 		await consumer.run({
 			eachMessage: async ({ topic, partition, message }) => {
-				const content = `${topic}[${partition} | ${message.offset}] / ${message.timestamp}`
+				const content = `${topic}[${partition} | ${message.offset}] / ${message.timestamp} - from ${message.headers.socketId}`
 				console.log(content)
 			}
 		})
