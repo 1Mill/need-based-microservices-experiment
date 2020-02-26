@@ -8,22 +8,22 @@ const io = require('socket.io')(server);
 io.adapter(ioRedisAdapter({ host: 'client-pool', port: 6379 }));
 io.use(ioMiddlewareWildcard);
 
-const KAFKA = new Kafka({
+const kafka = new Kafka({
 	brokers: ['core_rapids:29092'],
 	clientId: 'client-pub',
 });
-const PRODUCER = KAFKA.producer();
+const producer = kafka.producer();
 
 io.on('connect', (socket) => {
 	socket.on('*', async (packet) => {
 		try {
 			const [ topic ] = packet.data;
-			await PRODUCER.connect();
-			await PRODUCER.send({
+			await producer.connect();
+			await producer.send({
 				messages: [{ value: 'something' }],
 				topic,
 			});
-			await PRODUCER.disconnect();
+			await producer.disconnect();
 		} catch (err) {
 			console.error(err);
 		}
