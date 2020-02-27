@@ -1,6 +1,6 @@
 const { kafka } = require('../lib/kafka');
 
-export const subscribe = async (stringArray) => {
+const subscribe = async (stringArray) => {
 	try {
 		const consumer = kafka.consumer({ groupId: 'info-hydrator' });
 		await consumer.connect();
@@ -18,4 +18,6 @@ export const subscribe = async (stringArray) => {
 	} catch (err) {
 		console.error(err);
 	}
-}
+};
+
+module.exports = { subscribe };
