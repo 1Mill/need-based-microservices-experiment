@@ -15,6 +15,8 @@ export default {
 		createTodo() {
 			console.log('Creating todo...');
 			Ask('db.todo.created');
+			Ask('info.address');
+			Ask('info.phone-number');
 		},
 	},
 };
