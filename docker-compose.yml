@@ -74,3 +74,14 @@ services:
 
   client-pool:
     image: redis:5-alpine
+
+  # Info application
+  info-hydrator:
+    build: ./src/info-hydrator
+    environment:
+      CORE_RAPIDS_URL: core_rapids:29092
+    depends_on:
+      - core_rapids
+    volumes:
+      - ./src/info-hydrator/node_modules:/app/node_modules
+      - ./src/info-hydrator:/app
