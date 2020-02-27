@@ -12,7 +12,8 @@ const subscribe = async (stringArray) => {
 		});
 		await consumer.run({
 			eachMessage: async ({ topic, partition, message }) => {
-				console.log(message);
+				const content = `Request for ${topic} from ${message.headers.socketId}`;
+				console.log(content);
 			},
 		});
 	} catch (err) {
