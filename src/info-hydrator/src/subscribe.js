@@ -5,10 +5,7 @@ const subscribe = async (stringArray) => {
 		const consumer = kafka.consumer({ groupId: 'info-hydrator' });
 		await consumer.connect();
 		stringArray.forEach(async (string) => {
-			await consumer.subscribe({
-				fromBeginning: true,
-				topic: string,
-			});
+			await consumer.subscribe({ topic: string });
 		});
 		await consumer.run({
 			eachMessage: async ({ topic, partition, message }) => {
