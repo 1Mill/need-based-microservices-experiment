@@ -76,12 +76,20 @@ services:
     image: redis:5-alpine
 
   # Info application
+  info:
+    build: ./src/info
+    volumes:
+      - ./src/info/node_modules:/app/node_modules
+      - ./src/info:/app
+
   info-hydrator:
     build: ./src/info-hydrator
     environment:
       CORE_RAPIDS_URL: core_rapids:29092
+      INFO_URL: info:8080
     depends_on:
       - core_rapids
+      - info
     volumes:
       - ./src/info-hydrator/node_modules:/app/node_modules
       - ./src/info-hydrator:/app
