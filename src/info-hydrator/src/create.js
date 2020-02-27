@@ -1,6 +1,6 @@
 const { kafka } = require('../lib/kafka');
 
-export const create = async(stringArray) => {
+export const create = async (stringArray) => {
 	try {
 		const admin = kafka.admin();
 		await admin.connect();
@@ -11,4 +11,4 @@ export const create = async(stringArray) => {
 	} catch (err) {
 		console.error(err);
 	}
-};
+}
