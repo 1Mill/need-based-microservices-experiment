@@ -2,7 +2,8 @@ const { create } = require('./create');
 const { subscribe } = require('./subscribe');
 
 const TOPICS = [
-	'testing',
+	'info.address',
+	'info.phone-number',
 ];
 
 create(TOPICS);
