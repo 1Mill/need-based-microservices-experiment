@@ -11,13 +11,13 @@ client
 // Theme: Information
 river-hydrator
 	river
-	address-hydrator
-		address (microservice)
-		address-hydrator-pool
-	email-hydrator
-		email (microservice)
-	phonenumber-hydrator
-		phonenumber (microservice)
+		address-hydrator
+			address (microservice)
+			address-hydrator-pool
+		email-hydrator
+			email (microservice)
+		phonenumber-hydrator
+			phonenumber (microservice)
 
 # Links
 https://prezi.com/p/st2nowahp4y8/need-based-microservices/?present=1
