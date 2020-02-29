@@ -12,12 +12,12 @@ client
 river-hydrator
 	river
 	address-hydrator
-		address-hydrator-pool
-		address
+	address-hydrator-pool
+		address (microservice)
 	email-hydrator
-		email
+		email (microservice)
 	phonenumber-hydrator
-		phonenumber
+		phonenumber (microservice)
 
 # Links
 https://prezi.com/p/st2nowahp4y8/need-based-microservices/?present=1
