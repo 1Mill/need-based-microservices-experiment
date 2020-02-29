@@ -12,8 +12,8 @@ client
 river-hydrator
 	river
 	address-hydrator
-	address-hydrator-pool
 		address (microservice)
+		address-hydrator-pool
 	email-hydrator
 		email (microservice)
 	phonenumber-hydrator
