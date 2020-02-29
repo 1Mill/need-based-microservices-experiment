@@ -8,7 +8,7 @@ answer
 ask
 client
 
-// Info theme
+// Theme: Information
 river-hydrator
 	river
 	address-hydrator
