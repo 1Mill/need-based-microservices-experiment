@@ -1,14 +1,14 @@
 # Architecture
-// Core
+## Core
 rapids
 results
 
-// Client
+## Client
 answer
 ask
 client
 
-// Theme: Information
+## Theme: Information
 river-hydrator
 	river
 		address-hydrator
