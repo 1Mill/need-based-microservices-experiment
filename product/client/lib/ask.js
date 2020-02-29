@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const SOCKET = io(process.env.CLIENT_ASK_URL);
+const SOCKET = io(process.env.PRODUCT_ASK_URL);
 
 export const ask = async (event) => {
 	try {

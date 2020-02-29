@@ -4,8 +4,8 @@ services:
   ask:
     build: ./ask
     environment:
-      CLIENT_REDIS_HOST: ${CLIENT_REDIS_HOST}
-      CLIENT_REDIS_PORT: ${CLIENT_REDIS_PORT}
+      PRODUCT_REDIS_HOST: ${PRODUCT_REDIS_HOST}
+      PRODUCT_REDIS_PORT: ${PRODUCT_REDIS_PORT}
       CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
     depends_on:
       - redis
@@ -20,7 +20,7 @@ services:
     depends_on:
       - ask
     environment:
-      CLIENT_ASK_URL: ${CLIENT_ASK_URL}
+      PRODUCT_ASK_URL: ${PRODUCT_ASK_URL}
     ports:
       - 8080:8080
     volumes:

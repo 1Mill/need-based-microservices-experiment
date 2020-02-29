@@ -6,8 +6,8 @@ const { Kafka } = require('kafkajs');
 const io = require('socket.io')(server);
 
 io.adapter(ioRedisAdapter({
-	host: process.env.CLIENT_REDIS_HOST,
-	port: process.env.CLIENT_REDIS_PORT,
+	host: process.env.PRODUCT_REDIS_HOST,
+	port: process.env.PRODUCT_REDIS_PORT,
 }));
 io.use(ioMiddlewareWildcard);
 
