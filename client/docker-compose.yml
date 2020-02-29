@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  ask:
+    build: ./ask
+    environment:
+      CLIENT_REDIS_HOST: ${CLIENT_REDIS_HOST}
+      CLIENT_REDIS_PORT: ${CLIENT_REDIS_PORT}
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
+    depends_on:
+      - redis
+    ports:
+      - 8081:8080
+    volumes:
+        - ./ask/node_modules:/app/node_modules
+        - ./ask:/app
+
+  redis:
+    image: redis:5-alpine
