@@ -7,6 +7,7 @@ results
 answer
 ask
 client
+pool
 
 ## Theme: Information
 river-hydrator
