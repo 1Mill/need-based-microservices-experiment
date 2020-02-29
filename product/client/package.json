@@ -5,10 +5,10 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "npx nuxt",
+    "build": "npx nuxt build",
+    "start": "npx nuxt start",
+    "generate": "npx nuxt generate"
   },
   "dependencies": {
     "nuxt": "^2.11.0",
