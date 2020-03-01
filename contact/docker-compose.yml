@@ -3,6 +3,9 @@ version: "3"
 services:
   river-h:
     build: ./river-h
+    environment:
+      CONTACT_RIVER_URL: ${CONTACT_RIVER_URL}
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
     volumes:
       - ./river-h/node_modules:/river-h/node_modules
       - ./river-h:/app
