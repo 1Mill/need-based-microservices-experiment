@@ -1,6 +1,16 @@
 version: "3"
 
 services:
+  address:
+    build: ./address
+    depends_on:
+      - address-h
+    environment:
+      CONTACT_ADDRESS_H_URL: ${CONTACT_ADDRESS_H_URL}
+    volumes:
+      - ./address/node_modules:/address/node_modules
+      - ./address:/app
+
   address-h:
     build: ./address-h
     depends_on:
