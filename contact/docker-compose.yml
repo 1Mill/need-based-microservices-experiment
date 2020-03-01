@@ -1,6 +1,20 @@
 version: "3"
 
 services:
+  river:
+    image: confluentinc/cp-kafka:5.4.0
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: LISTENER_INTERNAL://${CONTACT_RIVER_HOST}:29092,LISTENER_EXTERNAL://${CONTACT_RIVER_HOST}:${CONTACT_RIVER_PORT}
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_INTERNAL
+      KAFKA_LISTENERS: LISTENER_INTERNAL://${CONTACT_RIVER_HOST}:29092,LISTENER_EXTERNAL://${CONTACT_RIVER_HOST}:${CONTACT_RIVER_PORT}
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_INTERNAL:PLAINTEXT,LISTENER_EXTERNAL:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: ${CONTACT_ZOOKEEPER_URL}
+    ports:
+      - ${CONTACT_RIVER_PORT}:${CONTACT_RIVER_PORT}
+
   river-h:
     build: ./river-h
     environment:
@@ -9,3 +23,6 @@ services:
     volumes:
       - ./river-h/node_modules:/river-h/node_modules
       - ./river-h:/app
+
+  zookeeper:
+    image: zookeeper:3.5
