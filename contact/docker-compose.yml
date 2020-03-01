@@ -17,6 +17,8 @@ services:
 
   river-h:
     build: ./river-h
+    depends_on:
+      - river
     environment:
       CONTACT_RIVER_URL: ${CONTACT_RIVER_URL}
       CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
