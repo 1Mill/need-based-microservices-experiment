@@ -1,0 +1,17 @@
+FROM node:13
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . .
+
+ENV HOST 0.0.0.0
+ENV PORT 8080
+EXPOSE 8080
+
+ENV CONTACT_RIVER_URL ${CONTACT_RIVER_URL}
+ENV CORE_RAPIDS_URL ${CORE_RAPIDS_URL}
+
+CMD ["npm", "run", "start"]

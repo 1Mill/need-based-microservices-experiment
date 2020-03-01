@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+  address-h:
+    build: ./address-h
+    depends_on:
+      - river
+    environment:
+      CONTACT_RIVER_URL: ${CONTACT_RIVER_URL}
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
+    volumes:
+      - ./address-h/node_modules:/address-h/node_modules
+      - ./address-h:/app
+
   river:
     image: confluentinc/cp-kafka:5.4.0
     depends_on:
