@@ -4,7 +4,7 @@ services:
   address:
     build: ./address
     volumes:
-      - ./address/node_modules:/address/node_modules
+      - ./address/node_modules:/app/node_modules
       - ./address:/app
 
   address-h:
@@ -17,7 +17,7 @@ services:
       CONTACT_RIVER_URL: ${CONTACT_RIVER_URL}
       CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
     volumes:
-      - ./address-h/node_modules:/address-h/node_modules
+      - ./address-h/node_modules:/app/node_modules
       - ./address-h:/app
 
   river:
@@ -42,7 +42,7 @@ services:
       CONTACT_RIVER_URL: ${CONTACT_RIVER_URL}
       CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
     volumes:
-      - ./river-h/node_modules:/river-h/node_modules
+      - ./river-h/node_modules:/app/node_modules
       - ./river-h:/app
 
   zookeeper:
