@@ -6,5 +6,7 @@ http.createServer((req, res) => {
 	res.writeHead(200, { 'Content-Type': 'application/json' });
 	res.write(res.url);
 	res.end();
-}).listen(process.env.PORT);
+}).listen(process.env.PORT, () => {
+	console.log(`listening on *:${process.env.PORT}`);
+});
 
