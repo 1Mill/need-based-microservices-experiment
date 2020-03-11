@@ -16,6 +16,6 @@ const axios = require('axios');
 const url = `http://${process.env.CONTACT_ADDRESS_URL}/`;
 setInterval(() => {
 	axios.get(url)
-	.then(res => console.log(res))
+	.then(res => console.log(res.data))
 	.catch(err => console.log(err));
-}, 5000);
+}, 1000);
