@@ -1,4 +1,3 @@
-const axios = require('axios');
 // const { Kafka } = require('kafkajs');
 
 // const CLIENT_ID = 'contract-river-h';
@@ -13,9 +12,4 @@ const axios = require('axios');
 // 	clientId: CLIENT_ID,
 // });
 
-const url = `http://${process.env.CONTACT_ADDRESS_URL}/`;
-setInterval(() => {
-	axios.get(url)
-	.then(res => console.log(res.data))
-	.catch(err => console.log(err));
-}, 1000);
+console.log("testing");
