@@ -1,7 +1,7 @@
 
 const { Kafka } = require('kafkajs');
 
-const CLIENT_ID = 'contract-river-h';
+const CLIENT_ID = 'contact-river-h';
 
 const rapidsKafka = new Kafka({
 	brokers: [process.env.CORE_RAPIDS_URL],
