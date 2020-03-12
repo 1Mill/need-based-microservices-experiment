@@ -12,9 +12,10 @@ import { ask } from '@/lib/ask';
 
 export default {
 	methods: {
-		ask() {
+		async ask() {
 			console.log('Asking a question...');
-			ask('testing');
+			const address = await ask('address');
+			console.log(address);
 		},
 	},
 };
