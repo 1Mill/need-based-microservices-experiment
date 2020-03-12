@@ -21,7 +21,7 @@ services:
       - ./address-h:/app
 
   river:
-    image: confluentinc/cp-kafka:5.4.0
+    image: confluentinc/cp-kafka:5.4.1
     depends_on:
       - zookeeper
     environment:
