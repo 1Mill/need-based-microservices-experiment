@@ -2,7 +2,7 @@ version: "3"
 
 services:
   rapids:
-    image: confluentinc/cp-kafka:5.4.0
+    image: confluentinc/cp-kafka:5.4.1
     depends_on:
       - rapids-zookeeper
     environment:
@@ -19,7 +19,7 @@ services:
     image: zookeeper:3.5
 
   results:
-    image: confluentinc/cp-kafka:5.4.0
+    image: confluentinc/cp-kafka:5.4.1
     depends_on:
       - results-zookeeper
     environment:
