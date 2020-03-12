@@ -32,5 +32,17 @@ services:
     ports:
       - ${CORE_RESULTS_PORT}:${CORE_RESULTS_PORT}
 
+  results-h:
+    build: ./results-h
+    depends_on:
+      - rapids
+      - results
+    environment:
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
+      CORE_RESULTS_URL: ${CORE_RESULTS_URL}
+    volumes:
+      - ./results-h/node_modules:/app/node_modules
+      - ./results-h:/app
+
   results-zookeeper:
     image: zookeeper:3.5
