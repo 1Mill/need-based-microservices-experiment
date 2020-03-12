@@ -7,7 +7,7 @@ const rapidsKafka = new Kafka({
 	clientId: CLIENT_ID,
 });
 
-const riverKafka =  new Kafka({
-	brokers: [process.env.CONTACT_RIVER_URL],
+const resultsKafka =  new Kafka({
+	brokers: [process.env.CORE_RESULTS_URL],
 	clientId: CLIENT_ID,
 });
