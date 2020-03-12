@@ -6,18 +6,9 @@ const GROUP_ID = 'contact-river-h';
 const TOPICS = ['contact.address'];
 
 const kafka = {
-	rapids: new Kafka({
-		brokers: [process.env.CORE_RAPIDS_URL],
-		clientId: CLIENT_ID,
-	}),
-	results: new Kafka({
-		brokers: [process.env.CORE_RESULTS_URL],
-		clientId: CLIENT_ID,
-	}),
-	river: new Kafka({
-		brokers: [process.env.CONTACT_RIVER_URL],
-		clientId: CLIENT_ID,
-	}),
+	rapids:  new Kafka({ brokers: [process.env.CORE_RAPIDS_URL],   clientId: CLIENT_ID }),
+	results: new Kafka({ brokers: [process.env.CORE_RESULTS_URL],  clientId: CLIENT_ID }),
+	river:   new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID }),
 };
 
 const main = async () => {
