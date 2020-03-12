@@ -1,8 +1,7 @@
 
 const { Kafka } = require('kafkajs');
 
-const CLIENT_ID = 'contact-river-h';
-const GROUP_ID = 'contact-river-h';
+const CLIENT_ID = GROUP_ID = 'contact-river-h';
 const TOPICS = ['contact.address'];
 
 const kafka = {
