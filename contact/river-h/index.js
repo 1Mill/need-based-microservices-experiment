@@ -27,7 +27,7 @@ const main = async () => {
 		// 	},
 		// });
 
-		const producer = kafka.river.producer();
+		const producer = kafka.results.producer();
 		await producer.connect();
 		console.log('connected');
 		producer.disconnect();
