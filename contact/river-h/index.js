@@ -27,19 +27,10 @@ const main = async () => {
 		// 	},
 		// });
 
-		const producer = kafka.results.producer();
+		const producer = kafka.river.producer();
 		await producer.connect();
 		console.log('connected');
 		producer.disconnect();
-
-		// await Object.keys(kafka).forEach(async key => {
-		// 	console.log(key);
-		// 	const p = kafka[key].producer();
-		// 	await p.connect();
-		// 	console.log('connected');
-		// 	await p.disconnect();
-		// });
-
 	} catch(err) {
 		console.error(err);
 	}
