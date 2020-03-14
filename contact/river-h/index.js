@@ -7,7 +7,7 @@ const TOPICS = ['contact.address'];
 const kafka = {
 	rapids:  new Kafka({ brokers: [process.env.CORE_RAPIDS_URL],   clientId: CLIENT_ID }),
 	results: new Kafka({ brokers: [process.env.CORE_RESULTS_URL],  clientId: CLIENT_ID }),
-	river:   new Kafka({ brokers: ['localhost:9092'], clientId: CLIENT_ID }),
+	river:   new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID }),
 };
 
 const main = async () => {
@@ -31,6 +31,15 @@ const main = async () => {
 		await producer.connect();
 		console.log('connected');
 		producer.disconnect();
+
+		// await Object.keys(kafka).forEach(async key => {
+		// 	console.log(key);
+		// 	const p = kafka[key].producer();
+		// 	await p.connect();
+		// 	console.log('connected');
+		// 	await p.disconnect();
+		// });
+
 	} catch(err) {
 		console.error(err);
 	}
