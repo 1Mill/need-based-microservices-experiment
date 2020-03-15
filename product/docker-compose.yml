@@ -1,16 +1,21 @@
-version: "3"
+version: '3.5'
 
 services:
   ask:
     build: ./ask
     environment:
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_PORT}
+      PORT: ${PRODUCT_ASK_PORT}
       PRODUCT_REDIS_HOST: ${PRODUCT_REDIS_HOST}
       PRODUCT_REDIS_PORT: ${PRODUCT_REDIS_PORT}
-      CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
     depends_on:
       - redis
+    networks:
+      - core-rapids-network
+      - product-client-network
+      - product-redis-network
     ports:
-      - 8081:8080
+      - ${PRODUCT_ASK_PORT}:${PRODUCT_ASK_PORT}
     volumes:
         - ./ask/node_modules:/app/node_modules
         - ./ask:/app
@@ -20,12 +25,25 @@ services:
     depends_on:
       - ask
     environment:
-      PRODUCT_ASK_URL: ${PRODUCT_ASK_URL}
+      PORT: ${PRODUCT_CLIENT_PORT}
+      PRODUCT_ASK_URL: ${PRODUCT_ASK_HOST}:${PRODUCT_ASK_PORT}
+    networks:
+      - product-client-network
     ports:
-      - 8080:8080
+      - ${PRODUCT_CLIENT_PORT}:${PRODUCT_CLIENT_PORT}
     volumes:
       - ./client/node_modules:/app/node_modules
       - ./client:/app
 
   redis:
     image: redis:5-alpine
+    networks:
+      - product-redis-network
+
+networks:
+  core-rapids-network:
+    name: core-rapids-network
+  core-results-network:
+    name: core-results-network
+  product-client-network: {}
+  product-redis-network: {}

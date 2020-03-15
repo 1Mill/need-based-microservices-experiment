@@ -8,9 +8,10 @@ RUN npm install
 COPY . .
 
 ENV HOST 0.0.0.0
-ENV PORT 8080
-EXPOSE 8080
 
+ENV PORT ${PORT}
 ENV PRODUCT_ASK_URL ${PRODUCT_ASK_URL}
+
+EXPOSE ${PORT}
 
 CMD ["npm", "run", "dev"]
