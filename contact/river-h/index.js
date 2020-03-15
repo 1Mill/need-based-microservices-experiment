@@ -14,12 +14,14 @@ const main = async () => {
 	try {
 		const consumer = kafka.rapids.consumer({ groupId: GROUP_ID });
 		await consumer.connect();
+
 		TOPICS.forEach(async (topic) => {
 			await consumer.subscribe({
 				fromBeginning: true,
 				topic,
 			});
 		});
+
 		await consumer.run({
 			eachMessage: async ({ topic, _partition, _message}) => {
 				const content = `${topic} was requested`;
