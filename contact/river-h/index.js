@@ -21,11 +21,21 @@ const main = async () => {
 				topic,
 			});
 		});
+		console.log('connected');
 
 		await consumer.run({
-			eachMessage: async ({ topic, _partition, _message}) => {
+			eachMessage: async ({ topic, _partition, message }) => {
 				const content = `${topic} was requested`;
 				console.log(content);
+
+				const producer = kafka.river.producer();
+				await producer.connect();
+				console.log('connecting to river');
+				await producer.send({
+					messages: [message],
+					topic,
+				 });
+				await producer.disconnect();
 			},
 		});
 	} catch(err) {
