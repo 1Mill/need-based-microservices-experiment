@@ -5,12 +5,11 @@ const CLIENT_ID = GROUP_ID = 'contact-address-h';
 const TOPICS = ['contact.address'];
 
 const kafka = {
-	rapids: new Kafka({ brokers: [process.env.CORE_RAPIDS_URL], clientId: CLIENT_ID }),
 	river: new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID }),
 };
 
 const main = async () => {
-	const consumer = kafka.rapids.consumer({ groupId: GROUP_ID });
+	const consumer = kafka.river.consumer({ groupId: GROUP_ID });
 	await consumer.connect();
 	console.log('connected');
 
