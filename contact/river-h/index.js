@@ -20,7 +20,6 @@ const main = async () => {
 				topic,
 			});
 		});
-		console.log("connected");
 		await consumer.run({
 			eachMessage: async ({ topic, _partition, _message}) => {
 				const content = `${topic} was requested`;
