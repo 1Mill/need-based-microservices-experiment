@@ -20,14 +20,13 @@ const main = async () => {
 				topic,
 			});
 		});
-		// await consumer.run({
-		// 	eachMessage: async ({ topic, _partition, _message}) => {
-		// 		const content = `${topic} was requested`;
-		// 		console.log(content);
-		// 	},
-		// });
-		console.log('Connected');
-		// await consumer.disconnect();
+		console.log("connected");
+		await consumer.run({
+			eachMessage: async ({ topic, _partition, _message}) => {
+				const content = `${topic} was requested`;
+				console.log(content);
+			},
+		});
 	} catch(err) {
 		console.error(err);
 	}

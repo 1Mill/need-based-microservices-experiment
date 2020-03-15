@@ -1,4 +1,4 @@
-version: "3"
+version: '3.5'
 
 services:
   address:
@@ -13,9 +13,9 @@ services:
       - address
       - river
     environment:
-      CONTACT_ADDRESS_URL: ${CONTACT_ADDRESS_URL}
-      CONTACT_RIVER_URL: ${CONTACT_RIVER_URL}
-      CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
+      CONTACT_ADDRESS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_HOST}
+      CONTACT_RIVER_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_HOST}
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_HOST}
     volumes:
       - ./address-h/node_modules:/app/node_modules
       - ./address-h:/app
@@ -25,29 +25,38 @@ services:
     depends_on:
       - zookeeper
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: ${CONTACT_RIVER_HOST}
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://:${CONTACT_RIVER_INSIDE_PORT},OUTSIDE://:${CONTACT_RIVER_OUTSIDE_PORT}
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://:${CONTACT_RIVER_INTERNAL_PORT},EXTERNAL://:${CONTACT_RIVER_PORT}
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
-      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_LISTENERS: INSIDE://:${CONTACT_RIVER_INSIDE_PORT},OUTSIDE://:${CONTACT_RIVER_OUTSIDE_PORT}
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_LISTENERS: INTERNAL://:${CONTACT_RIVER_INTERNAL_PORT},EXTERNAL://:${CONTACT_RIVER_PORT}
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_ZOOKEEPER_CONNECT: ${CONTACT_ZOOKEEPER_URL}
+      KAFKA_ZOOKEEPER_CONNECT: ${CONTACT_ZOOKEEPER_HOST}:${CONTACT_ZOOKEEPER_PORT}
+    networks:
+      - proxynet
     ports:
-      - ${CONTACT_RIVER_OUTSIDE_PORT}:${CONTACT_RIVER_OUTSIDE_PORT}
+      - ${CONTACT_RIVER_PORT}:${CONTACT_RIVER_PORT}
 
   river-h:
     build: ./river-h
     depends_on:
       - river
     environment:
-      CONTACT_RIVER_URL: ${CONTACT_RIVER_URL}
-      CORE_RAPIDS_URL: ${CORE_RAPIDS_URL}
-      CORE_RESULTS_URL: ${CORE_RESULTS_URL}
+      CONTACT_RIVER_URL: ${CONTACT_RIVER_HOST}:${CONTACT_RIVER_PORT}
+      CORE_RAPIDS_URL:   ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_PORT}
+      CORE_RESULTS_URL:  ${CORE_RESULTS_HOST}:${CORE_RESULTS_PORT}
+    networks:
+      - proxynet
     volumes:
       - ./river-h/node_modules:/app/node_modules
       - ./river-h:/app
 
   zookeeper:
     image: zookeeper:3.5
+    networks:
+      - proxynet
+
+networks:
+  proxynet:
+    name: dev_network
