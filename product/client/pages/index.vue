@@ -14,7 +14,7 @@ export default {
 	methods: {
 		async ask() {
 			console.log('Asking a question...');
-			const address = await ask('address');
+			const address = await ask('contact.address');
 			console.log(address);
 		},
 	},
