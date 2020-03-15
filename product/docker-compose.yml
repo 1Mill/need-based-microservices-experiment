@@ -43,7 +43,7 @@ services:
 networks:
   core-rapids-network:
     name: core-rapids-network
-  core-results-network:
-    name: core-results-network
+  # core-results-network:
+  #   name: core-results-network
   product-client-network: {}
   product-redis-network: {}
