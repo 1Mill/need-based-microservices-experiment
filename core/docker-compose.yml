@@ -15,14 +15,16 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_ZOOKEEPER_CONNECT: ${CORE_RAPIDS_ZOOKEEPER_URL}
     networks:
-      - proxynet
+      - core-rapids-internal-network
+      - core-rapids-network
     ports:
       - ${CORE_RAPIDS_PORT}:${CORE_RAPIDS_PORT}
 
   rapids-zookeeper:
     image: zookeeper:3.5
     networks:
-      - proxynet
+      - core-rapids-internal-network
+      - core-rapids-network
 
   results:
     image: confluentinc/cp-kafka:5.4.1
@@ -38,15 +40,18 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_ZOOKEEPER_CONNECT: ${CORE_RAPIDS_ZOOKEEPER_URL}
     networks:
-      - proxynet
+      - core-results-internal-network
+      - core-results-network
     ports:
       - ${CORE_RESULTS_PORT}:${CORE_RESULTS_PORT}
 
   results-zookeeper:
     image: zookeeper:3.5
     networks:
-      - proxynet
+      - core-results-internal-network
 
 networks:
-  proxynet:
-    name: dev_network
+  core-rapids-internal-network: {}
+  core-rapids-network: {}
+  core-results-internal-network: {}
+  core-results-network: {}
