@@ -52,6 +52,8 @@ services:
 
 networks:
   core-rapids-internal-network: {}
-  core-rapids-network: {}
+  core-rapids-network:
+    name: core-rapids-network
   core-results-internal-network: {}
-  core-results-network: {}
+  core-results-network:
+    name: core-results-network

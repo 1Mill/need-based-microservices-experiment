@@ -13,9 +13,12 @@ services:
       - address
       - river
     environment:
-      CONTACT_ADDRESS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_HOST}
-      CONTACT_RIVER_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_HOST}
-      CORE_RAPIDS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_HOST}
+      CONTACT_ADDRESS_URL: ${CORE_ADDRESS_HOST}:${CONTACT_ADDRESS_PORT}
+      CONTACT_RIVER_URL: ${CONTACT_RIVER_HOST}:${CONTACT_RIVER_PORT}
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_PORT}
+    networks:
+      - contact-river-network
+      - core-rapids-network
     volumes:
       - ./address-h/node_modules:/app/node_modules
       - ./address-h:/app
@@ -34,7 +37,8 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_ZOOKEEPER_CONNECT: ${CONTACT_ZOOKEEPER_HOST}:${CONTACT_ZOOKEEPER_PORT}
     networks:
-      - proxynet
+      - contact-river-internal-network
+      - contact-river-network
     ports:
       - ${CONTACT_RIVER_PORT}:${CONTACT_RIVER_PORT}
 
@@ -44,10 +48,12 @@ services:
       - river
     environment:
       CONTACT_RIVER_URL: ${CONTACT_RIVER_HOST}:${CONTACT_RIVER_PORT}
-      CORE_RAPIDS_URL:   ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_PORT}
-      CORE_RESULTS_URL:  ${CORE_RESULTS_HOST}:${CORE_RESULTS_PORT}
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_PORT}
+      CORE_RESULTS_URL: ${CORE_RESULTS_HOST}:${CORE_RESULTS_PORT}
     networks:
-      - proxynet
+      - contact-river-network
+      - core-rapids-network
+      - core-results-network
     volumes:
       - ./river-h/node_modules:/app/node_modules
       - ./river-h:/app
@@ -55,8 +61,12 @@ services:
   zookeeper:
     image: zookeeper:3.5
     networks:
-      - proxynet
+      - contact-river-internal-network
 
 networks:
-  proxynet:
-    name: dev_network
+  contact-river-internal-network: {}
+  contact-river-network: {}
+  core-rapids-network:
+    name: core-rapids-network
+  core-results-network:
+    name: core-results-network
