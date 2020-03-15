@@ -3,6 +3,10 @@ version: '3.5'
 services:
   address:
     build: ./address
+    environment:
+      PORT: ${CONTACT_ADDRESS_PORT}
+    networks:
+      - contact-address-internal-network
     volumes:
       - ./address/node_modules:/app/node_modules
       - ./address:/app
@@ -13,10 +17,11 @@ services:
       - address
       - river
     environment:
-      CONTACT_ADDRESS_URL: ${CORE_ADDRESS_HOST}:${CONTACT_ADDRESS_PORT}
+      CONTACT_ADDRESS_URL: ${CONTACT_ADDRESS_HOST}:${CONTACT_ADDRESS_PORT}
       CONTACT_RIVER_URL: ${CONTACT_RIVER_HOST}:${CONTACT_RIVER_PORT}
       CORE_RAPIDS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_PORT}
     networks:
+      - contact-address-internal-network
       - contact-river-network
       - core-rapids-network
     volumes:
@@ -64,6 +69,7 @@ services:
       - contact-river-internal-network
 
 networks:
+  contact-address-internal-network: {}
   contact-river-internal-network: {}
   contact-river-network: {}
   core-rapids-network:

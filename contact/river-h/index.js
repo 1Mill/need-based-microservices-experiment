@@ -14,6 +14,7 @@ const main = async () => {
 	try {
 		const consumer = kafka.rapids.consumer({ groupId: GROUP_ID });
 		await consumer.connect();
+		console.log('connected');
 
 		TOPICS.forEach(async (topic) => {
 			await consumer.subscribe({
@@ -21,7 +22,6 @@ const main = async () => {
 				topic,
 			});
 		});
-		console.log('connected');
 
 		await consumer.run({
 			eachMessage: async ({ topic, _partition, message }) => {
