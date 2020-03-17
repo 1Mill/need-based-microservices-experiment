@@ -23,7 +23,20 @@ io.on('connect', (socket) => {
 			const [ topic ] = packet.data;
 			await producer.connect();
 			await producer.send({
-				messages: [{ headers: { socketId: socket.id }, value: null }],
+				messages: [
+					{
+						header: { contentType: 'application/cloudevents+json;charset=UTF-8' },
+						value: JSON.stringify({
+							data: {},
+							datacontenttype: 'application/json',
+							id: `${socket.id}`,
+							source: '/', // TODO: Get route from client
+							specversion: '1.0',
+							time: new Date().toISOString(),
+							type: `com.product.${topic}`,
+						}),
+					},
+				],
 				topic,
 			});
 			await producer.disconnect();
