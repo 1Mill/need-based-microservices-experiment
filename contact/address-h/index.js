@@ -25,6 +25,8 @@ const main = async () => {
 			const content = `${topic} was requested`;
 			console.log(content);
 
+			console.log(JSON.parse(message.value));
+
 			const url = `http://${process.env.CONTACT_ADDRESS_URL}/`;
 			await axios.get(url)
 			.then(res =>  console.log(res.data))
