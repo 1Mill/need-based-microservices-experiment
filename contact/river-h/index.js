@@ -25,6 +25,11 @@ const main = async () => {
 
 		await consumer.run({
 			eachMessage: async ({ topic, _partition, message }) => {
+				if (Object.keys(JSON.parse(message.value).data).includes('enrichment')) {
+					console.log('TODO: Send to results service');
+					return;
+				}
+
 				const content = `${topic} was requested`;
 				console.log(content);
 
