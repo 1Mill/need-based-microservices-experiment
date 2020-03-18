@@ -4,24 +4,24 @@ const { Kafka } = require('kafkajs');
 const CLIENT_ID = GROUP_ID = 'contact-river-h';
 const TOPICS = ['contact.address'];
 
+const TO_CORE_RAPIDS = 'core.rapids';
+const TO_CORE_RESULTS = 'core.results';
+const TO_RIVER = 'river';
+
 const CORE_RAPIDS_KAFKA =   new Kafka({ brokers: [process.env.CORE_RAPIDS_URL],   clientId: CLIENT_ID });
 const CORE_RESULTS_KAFKA =  new Kafka({ brokers: [process.env.CORE_RESULTS_URL],  clientId: CLIENT_ID });
 const RIVER_KAFKA = new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID });
 
-const TO_CORE_RAPIDS = 'core.rapids';
-const TO_CORE_RESULTS = 'core.results';
-const TO_RIVER = 'river';
+const isEnriched = ({ event }) => {
+	const { data } = JSON.parse(event.message.value);
+	return !!Object.keys(data).includes('enrichment');
+};
 
 const kafka = ({ to }) => {
 	if (to === TO_CORE_RAPIDS) { return CORE_RAPIDS_KAFKA; }
 	if (to === TO_CORE_RESULTS) { return CORE_RESULTS_KAFKA; }
 	if (to === TO_RIVER) { return RIVER_KAFKA; }
 }
-
-const isEnriched = ({ event }) => {
-	const { data } = JSON.parse(event.message.value);
-	return !!Object.keys(data).includes('enrichment');
-};
 
 const publish = async ({ event, to }) => {
 	try {
