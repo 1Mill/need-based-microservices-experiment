@@ -5,6 +5,7 @@ const CLIENT_ID = GROUP_ID = 'contact-address-h';
 const TOPICS = ['contact.address'];
 
 const kafka = {
+	rapids: new Kafka({ brokers: [process.env.CORE_RAPIDS_URL], clientId: CLIENT_ID }),
 	river: new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID }),
 };
 
@@ -22,15 +23,17 @@ const main = async () => {
 
 	await consumer.run({
 		eachMessage: async ({ topic, _partition, message }) => {
-			const content = `${topic} was requested`;
-			console.log(content);
-
-			console.log(JSON.parse(message.value));
-
 			const url = `http://${process.env.CONTACT_ADDRESS_URL}/`;
-			await axios.get(url)
-			.then(res =>  console.log(res.data))
-			.catch(err => console.error(err))
+			axios.get(url)
+			.then(async (res) => {
+				const producer = kafka.rapids.producer();
+				await producer.connect();
+				// await producer.send({ messages: [message] });
+				await producer.disconnect();
+
+				console.log(res.data);
+			})
+			.catch(err => console.error(err));
 		},
 	});
 };
