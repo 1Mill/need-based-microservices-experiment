@@ -25,7 +25,7 @@ io.on('connect', (socket) => {
 			await producer.send({
 				messages: [
 					{
-						header: { contentType: 'application/cloudevents+json;charset=UTF-8' },
+						headers: { contentType: 'application/cloudevents+json;charset=UTF-8' },
 						value: JSON.stringify({
 							data: {},
 							datacontenttype: 'application/json',
