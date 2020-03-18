@@ -21,7 +21,7 @@ const kafka = ({ to }) => {
 	if (to === TO_CORE_RAPIDS) { return CORE_RAPIDS_KAFKA; }
 	if (to === TO_CORE_RESULTS) { return CORE_RESULTS_KAFKA; }
 	if (to === TO_RIVER) { return RIVER_KAFKA; }
-}
+};
 
 const publish = async ({ event, to }) => {
 	try {
@@ -35,7 +35,7 @@ const publish = async ({ event, to }) => {
 	} catch (err) {
 		console.error(err);
 	}
-}
+};
 
 const subscribe = async ({ onEvent, to, topics }) => {
 	const consumer = kafka({ to }).consumer({ groupId: GROUP_ID });
