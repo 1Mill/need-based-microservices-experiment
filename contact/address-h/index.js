@@ -32,7 +32,13 @@ const main = async () => {
 					messages: [
 						{
 							headers: message.headers,
-							value: message.value,
+							value: JSON.stringify({
+								...JSON.parse(message.value),
+								data: {
+									...JSON.parse(message.value).data,
+									enrichment: 'my-enrichment-response',
+								},
+							}),
 						},
 					],
 					topic,
