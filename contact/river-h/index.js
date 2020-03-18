@@ -4,53 +4,48 @@ const { Kafka } = require('kafkajs');
 const CLIENT_ID = GROUP_ID = 'contact-river-h';
 const TOPICS = ['contact.address'];
 
-const kafka = {
-	rapids:  new Kafka({ brokers: [process.env.CORE_RAPIDS_URL],   clientId: CLIENT_ID }),
-	results: new Kafka({ brokers: [process.env.CORE_RESULTS_URL],  clientId: CLIENT_ID }),
-	river:   new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID }),
-};
+const generateKafka = ({ url }) => {
+	return new Kafka({ brokers: [url], clientId: CLIENT_ID });
+}
 
 const isEnriched = ({ message }) => {
 	const { data } = JSON.parse(message.value);
 	return !!Object.keys(data).includes('enrichment');
 };
 
-const publish = async ({ kafka, message, topic }) => {
+const publish = async ({ event }) => {
 	try {
-		const producer = kafka.producer();
+		const url = isEnriched({ message: event.message }) ? process.env.CORE_RESULTS_URL : process.env.CONTACT_RIVER_URL;
+		const producer = generateKafka({ url }).producer();
 		await producer.connect();
 		await producer.send({
-			messages: [message],
-			topic,
+			messages: [event.message],
+			topic: event.topic,
 		});
-		await producer.disconnect();
+		producer.disconnect();
 	} catch (err) {
 		console.error(err);
 	}
 }
 
+const subscribe = async ({ onEvent, topics, url }) => {
+	const consumer = generateKafka({ url }).consumer({ groupId: GROUP_ID });
+	await consumer.connect();
+	topics.forEach(topic => {
+		consumer.subscribe({ fromBeginning: true, topic });
+	});
+	consumer.run({ eachMessage: (event) => onEvent({ event }) });
+};
+
 const main = async () => {
 	try {
-		const consumer = kafka.rapids.consumer({ groupId: GROUP_ID });
-		await consumer.connect();
-		console.log('connected');
-
-		TOPICS.forEach(async (topic) => {
-			await consumer.subscribe({
-				fromBeginning: true,
-				topic,
-			});
-		});
-
-		await consumer.run({
-			eachMessage: ({ topic, _partition, message }) => {
-				console.log(`${topic}, enriched ${isEnriched({ message })}`);
-				publish({
-					kafka: isEnriched({ message }) ? kafka.results : kafka.river,
-					message,
-					topic,
-				});
+		subscribe({
+			onEvent: ({ event }) => {
+				console.log(`${event.topic} is enriched ${isEnriched({ message: event.message })}`);
+				publish({ event });
 			},
+			topics: TOPICS,
+			url: process.env.CORE_RAPIDS_URL,
 		});
 	} catch(err) {
 		console.error(err);
