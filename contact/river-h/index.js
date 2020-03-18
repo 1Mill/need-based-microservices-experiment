@@ -10,9 +10,24 @@ const kafka = {
 	river:   new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID }),
 };
 
-const isMessageEnriched = ({ message }) => {
-	return !!Object.keys(JSON.parse(message.value).data).includes('enrichment');
+const isEnriched = ({ message }) => {
+	const { data } = JSON.parse(message.value);
+	return !!Object.keys(data).includes('enrichment');
 };
+
+const publish = async ({ kafka, message, topic }) => {
+	try {
+		const producer = kafka.producer();
+		await producer.connect();
+		await producer.send({
+			messages: [message],
+			topic,
+		});
+		await producer.disconnect();
+	} catch (err) {
+		console.error(err);
+	}
+}
 
 const main = async () => {
 	try {
@@ -28,23 +43,13 @@ const main = async () => {
 		});
 
 		await consumer.run({
-			eachMessage: async ({ topic, _partition, message }) => {
-				if (isMessageEnriched({ message })) {
-					console.log('TODO: Send to results service');
-					return;
-				}
-
-				const content = `${topic} was requested`;
-				console.log(content);
-
-				const producer = kafka.river.producer();
-				await producer.connect();
-				console.log('connecting to river');
-				await producer.send({
-					messages: [message],
+			eachMessage: ({ topic, _partition, message }) => {
+				console.log(`${topic}, enriched ${isEnriched({ message })}`);
+				publish({
+					kafka: isEnriched({ message }) ? kafka.results : kafka.river,
+					message,
 					topic,
-				 });
-				await producer.disconnect();
+				});
 			},
 		});
 	} catch(err) {
