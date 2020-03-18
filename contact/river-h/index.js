@@ -37,7 +37,7 @@ const publish = async ({ event, to }) => {
 	}
 }
 
-const subscribe = async ({ onEvent, topics, to }) => {
+const subscribe = async ({ onEvent, to, topics }) => {
 	const consumer = kafka({ to }).consumer({ groupId: GROUP_ID });
 	await consumer.connect();
 	topics.forEach(topic => {
