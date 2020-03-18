@@ -28,9 +28,18 @@ const main = async () => {
 			.then(async (res) => {
 				const producer = kafka.rapids.producer();
 				await producer.connect();
-				// await producer.send({ messages: [message] });
+				await producer.send({
+					messages: [
+						{
+							headers: message.headers,
+							value: message.value,
+						},
+					],
+					topic,
+				});
 				await producer.disconnect();
 
+				console.log(message);
 				console.log(res.data);
 			})
 			.catch(err => console.error(err));
