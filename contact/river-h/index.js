@@ -10,6 +10,10 @@ const kafka = {
 	river:   new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID }),
 };
 
+const isMessageEnriched = ({ message }) => {
+	return !!Object.keys(JSON.parse(message.value).data).includes('enrichment');
+};
+
 const main = async () => {
 	try {
 		const consumer = kafka.rapids.consumer({ groupId: GROUP_ID });
@@ -25,7 +29,7 @@ const main = async () => {
 
 		await consumer.run({
 			eachMessage: async ({ topic, _partition, message }) => {
-				if (Object.keys(JSON.parse(message.value).data).includes('enrichment')) {
+				if (isMessageEnriched({ message })) {
 					console.log('TODO: Send to results service');
 					return;
 				}
