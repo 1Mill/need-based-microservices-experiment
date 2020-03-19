@@ -49,11 +49,11 @@ const main = async () => {
 		}).subscribe({
 			onEvent: ({ event }) => {
 				console.log(`${event.topic} is enriched ${isEnriched({ event })}`);
-				// stream({
-				// 	id: CLIENT_ID,
-				// 	type: STREAM_TYPE_KAFKA,
-				// 	url: isEnriched({ event }) ? process.env.CORE_RESULTS_URL : process.env.CONTACT_RIVER_URL,
-				// }).publish({ event });
+				stream({
+					id: CLIENT_ID,
+					type: STREAM_TYPE_KAFKA,
+					url: isEnriched({ event }) ? process.env.CORE_RESULTS_URL : process.env.CONTACT_RIVER_URL,
+				}).publish({ event });
 			},
 			topics: TOPICS,
 		});
