@@ -8,8 +8,8 @@ const TO_CORE_RAPIDS = 'core.rapids';
 const TO_CORE_RESULTS = 'core.results';
 const TO_RIVER = 'river';
 
-const CORE_RAPIDS_KAFKA =   new Kafka({ brokers: [process.env.CORE_RAPIDS_URL],   clientId: CLIENT_ID });
-const CORE_RESULTS_KAFKA =  new Kafka({ brokers: [process.env.CORE_RESULTS_URL],  clientId: CLIENT_ID });
+const CORE_RAPIDS_KAFKA = new Kafka({ brokers: [process.env.CORE_RAPIDS_URL], clientId: CLIENT_ID });
+const CORE_RESULTS_KAFKA = new Kafka({ brokers: [process.env.CORE_RESULTS_URL], clientId: CLIENT_ID });
 const RIVER_KAFKA = new Kafka({ brokers: [process.env.CONTACT_RIVER_URL], clientId: CLIENT_ID });
 
 const isEnriched = ({ event }) => {
