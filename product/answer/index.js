@@ -19,7 +19,11 @@ try {
 		type: WATERWAY_TYPE_KAFKA,
 		url: process.env.CORE_RESULTS_URL,
 	}).subscribe({
-		onEvent: ({ event }) => { console.log('found event'); },
+		onEvent: ({ event }) => {
+			console.log('event with results found');
+			const { id, data: { enrichment }} = JSON.parse(event.message.value);
+			console.log(`${id} requested ${enrichment}`);
+		},
 		topics: TOPICS,
 	});
 } catch(err) {
