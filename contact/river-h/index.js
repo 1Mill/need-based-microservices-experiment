@@ -1,9 +1,6 @@
-const {
-	WATERWAY_TYPE_KAFKA,
-	waterway,
-} = require('@1mill/waterway');
+const { WATERWAY_TYPE_KAFKA, waterway } = require('@1mill/waterway');
 
-const CLIENT_ID = GROUP_ID = 'contact-river-h';
+const ID = 'contact-river-h';
 const TOPICS = ['contact.address'];
 
 const isEnriched = ({ event }) => {
@@ -14,14 +11,14 @@ const isEnriched = ({ event }) => {
 const main = async () => {
 	try {
 		waterway({
-			id: CLIENT_ID,
+			id: ID,
 			type: WATERWAY_TYPE_KAFKA,
 			url: process.env.CORE_RAPIDS_URL,
 		}).subscribe({
 			onEvent: ({ event }) => {
 				console.log(`${event.topic} is enriched ${isEnriched({ event })}`);
 				waterway({
-					id: CLIENT_ID,
+					id: ID,
 					type: WATERWAY_TYPE_KAFKA,
 					url: isEnriched({ event }) ? process.env.CORE_RESULTS_URL : process.env.CONTACT_RIVER_URL,
 				}).publish({ event });

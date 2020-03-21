@@ -1,8 +1,5 @@
 const axios = require('axios');
-const {
-	WATERWAY_TYPE_KAFKA,
-	waterway,
-} = require('@1mill/waterway');
+const { WATERWAY_TYPE_KAFKA, waterway } = require('@1mill/waterway');
 
 const ID = 'contact-address-h';
 const TOPICS = ['contact.address'];
