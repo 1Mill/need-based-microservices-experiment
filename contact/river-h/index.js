@@ -1,4 +1,3 @@
-
 const {
 	WATERWAY_TYPE_KAFKA,
 	waterway,
