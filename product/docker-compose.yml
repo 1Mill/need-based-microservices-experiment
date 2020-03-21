@@ -1,6 +1,25 @@
 version: '3.5'
 
 services:
+  answer:
+    build: ./answer
+    environment:
+      CORE_RESULT_URL: ${CORE_RESULTS_HOST}:${CORE_RESULTS_PORT}
+      PORT: ${PRODUCT_ANSWER_PORT}
+      PRODUCT_REDIS_HOST: ${PRODUCT_REDIS_HOST}
+      PRODUCT_REDIS_PORT: ${PRODUCT_REDIS_PORT}
+    depends_on:
+        - redis
+    networks:
+      - core-results-network
+      - product-client-network
+      - product-redis-network
+    ports:
+      - ${PRODUCT_ANSWER_PORT}:${PRODUCT_ANSWER_PORT}
+    volumes:
+        - ./answer/node_modules:/app/node_modules
+        - ./answer:/app
+
   ask:
     build: ./ask
     environment:
@@ -23,10 +42,12 @@ services:
   client:
     build: ./client
     depends_on:
+      - answer
       - ask
     environment:
       PORT: ${PRODUCT_CLIENT_PORT}
-      PRODUCT_ASK_URL: localhost:${PRODUCT_ASK_PORT} # Connecting over localhost for browser-side rendering
+      PRODUCT_ANSWER_URL: localhost:${PRODUCT_ANSWER_PORT} # Connecting over localhost for broswer access
+      PRODUCT_ASK_URL: localhost:${PRODUCT_ASK_PORT} # Connecting over localhost for browser access
     networks:
       - product-client-network
     ports:
@@ -43,7 +64,7 @@ services:
 networks:
   core-rapids-network:
     name: core-rapids-network
-  # core-results-network:
-  #   name: core-results-network
+  core-results-network:
+    name: core-results-network
   product-client-network: {}
   product-redis-network: {}
