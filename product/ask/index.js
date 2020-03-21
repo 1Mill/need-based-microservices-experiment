@@ -12,8 +12,8 @@ io.use(ioMiddlewareWildcard);
 
 const ID = 'product-ask';
 
-io.on('connect', (socket) => {
-	socket.on('*', async (packet) => {
+io.on('connect', socket => {
+	socket.on('*', packet => {
 		try {
 			const [ topic ] = packet.data;
 			const event = {
