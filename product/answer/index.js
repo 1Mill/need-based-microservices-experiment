@@ -1,7 +1,7 @@
 const ioMiddlewareWildcard = require('socketio-wildcard')();
 const ioRedisAdapter = require('socket.io-redis');
 const server = require('http').createServer();
-// const { WATERWAY_TYPE_KAFKA, waterway } = require('@1mill/waterway');
+const { WATERWAY_TYPE_KAFKA, waterway } = require('@1mill/waterway');
 
 const io = require('socket.io')(server);
 io.adapter(ioRedisAdapter({
@@ -11,7 +11,21 @@ io.adapter(ioRedisAdapter({
 io.use(ioMiddlewareWildcard);
 
 const ID = 'product-answer';
+const TOPICS = ['contact.address'];
+
+try {
+	waterway({
+		id: ID,
+		type: WATERWAY_TYPE_KAFKA,
+		url: process.env.CORE_RESULTS_URL,
+	}).subscribe({
+		onEvent: ({ event }) => { console.log('found event'); },
+		topics: TOPICS,
+	});
+} catch(err) {
+	console.error(err);
+}
 
 server.listen(process.env.PORT, () => {
 	console.log(`listening on *:${process.env.PORT}`);
-})
+});
