@@ -4,13 +4,13 @@ const {
 	waterway,
 } = require('@1mill/waterway');
 
-const CLIENT_ID = GROUP_ID = 'contact-address-h';
+const ID = 'contact-address-h';
 const TOPICS = ['contact.address'];
 
 const main = async () => {
 	try {
 		waterway({
-			id: CLIENT_ID,
+			id: ID,
 			type: WATERWAY_TYPE_KAFKA,
 			url: process.env.CONTACT_RIVER_URL,
 		}).subscribe({
@@ -31,7 +31,7 @@ const main = async () => {
 						topic: event.topic,
 					};
 					waterway({
-						id: CLIENT_ID,
+						id: ID,
 						type: WATERWAY_TYPE_KAFKA,
 						url: process.env.CORE_RAPIDS_URL,
 					}).publish({ event: enrichedEvent });
