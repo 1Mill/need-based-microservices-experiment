@@ -1,6 +1,6 @@
 {
   "name": "@1mill/waterway",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "kafka": "^0.2.3"
+    "kafkajs": "^1.12.0"
   }
 }
