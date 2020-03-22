@@ -17,7 +17,11 @@ const main = async () => {
 		}).subscribe({
 			onEvent: ({ event }) => {
 				if (isEnriched({ event })) {
-					console.log('TODO: Send to client');
+					waterway({
+						id: ID,
+						type: WATERWAY_TYPE_KAFKA,
+						url: process.env.PRODUCT_RIVER_URL,
+					}).publish({ event });
 				}
 			},
 			topics: TOPICS,
