@@ -61,6 +61,30 @@ services:
     networks:
       - product-redis-network
 
+  river:
+    image: confluentinc/cp-kafka:5.4.1
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://:${PRODUCT_RIVER_INTERNAL_PORT},EXTERNAL://:${PRODUCT_RIVER_PORT}
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_LISTENERS: INTERNAL://:${PRODUCT_RIVER_INTERNAL_PORT},EXTERNAL://:${PRODUCT_RIVER_PORT}
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: ${PRODUCT_ZOOKEEPER_HOST}:${PRODUCT_ZOOKEEPER_PORT}
+    networks:
+      - product-river-internal-network
+      - product-river-network
+    ports:
+      - ${PRODUCT_RIVER_PORT}:${PRODUCT_RIVER_PORT}
+
+  zookeeper:
+    image: zookeeper:3.5
+    networks:
+      - product-river-internal-network
+
 networks:
   core-rapids-network:
     name: core-rapids-network
@@ -68,3 +92,5 @@ networks:
     name: core-results-network
   product-client-network: {}
   product-redis-network: {}
+  product-river-internal-network: {}
+  product-river-network: {}
