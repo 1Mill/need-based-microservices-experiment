@@ -80,6 +80,20 @@ services:
     ports:
       - ${PRODUCT_RIVER_PORT}:${PRODUCT_RIVER_PORT}
 
+  river-h:
+    build: ./river-h
+    depends_on:
+      - river
+    environment:
+      CORE_RAPIDS_URL: ${CORE_RAPIDS_HOST}:${CORE_RAPIDS_PORT}
+      PRODUCT_RIVER_URL: ${PRODUCT_RIVER_HOST}:${PRODUCT_RIVER_PORT}
+    networks:
+      - core-rapids-network
+      - product-river-network
+    volumes:
+      - ./river-h/node_modules:/app/node_modules
+      - ./river-h:/app
+
   zookeeper:
     image: zookeeper:3.5
     networks:
