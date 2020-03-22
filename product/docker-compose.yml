@@ -4,16 +4,17 @@ services:
   answer:
     build: ./answer
     environment:
-      CORE_RESULTS_URL: ${CORE_RESULTS_HOST}:${CORE_RESULTS_PORT}
       PORT: ${PRODUCT_ANSWER_PORT}
       PRODUCT_REDIS_HOST: ${PRODUCT_REDIS_HOST}
       PRODUCT_REDIS_PORT: ${PRODUCT_REDIS_PORT}
+      PRODUCT_RIVER_URL: ${PRODUCT_RIVER_HOST}:${PRODUCT_RIVER_PORT}
     depends_on:
         - redis
+        - river
     networks:
-      - core-results-network
       - product-client-network
       - product-redis-network
+      - product-river-network
     ports:
       - ${PRODUCT_ANSWER_PORT}:${PRODUCT_ANSWER_PORT}
     volumes:
@@ -102,8 +103,6 @@ services:
 networks:
   core-rapids-network:
     name: core-rapids-network
-  core-results-network:
-    name: core-results-network
   product-client-network: {}
   product-redis-network: {}
   product-river-internal-network: {}
