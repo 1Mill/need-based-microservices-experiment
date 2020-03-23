@@ -16,12 +16,13 @@ const main = async () => {
 			url: process.env.CORE_RAPIDS_URL,
 		}).subscribe({
 			onEvent: ({ event }) => {
-				console.log(`${event.topic} is enriched ${isEnriched({ event })}`);
-				waterway({
-					id: ID,
-					type: WATERWAY_TYPE_KAFKA,
-					url: isEnriched({ event }) ? process.env.CORE_RESULTS_URL : process.env.CONTACT_RIVER_URL,
-				}).publish({ event });
+				if (!isEnriched({ event })) {
+					waterway({
+						id: ID,
+						type: WATERWAY_TYPE_KAFKA,
+						url: process.env.CONTACT_RIVER_URL,
+					}).publish({ event });
+				}
 			},
 			topics: TOPICS,
 		});

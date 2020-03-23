@@ -4,7 +4,7 @@ services:
   rapids:
     image: confluentinc/cp-kafka:5.4.1
     depends_on:
-      - rapids-zookeeper
+      - zookeeper
     environment:
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://:${CORE_RAPIDS_INTERNAL_PORT},EXTERNAL://:${CORE_RAPIDS_PORT}
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
@@ -20,40 +20,12 @@ services:
     ports:
       - ${CORE_RAPIDS_PORT}:${CORE_RAPIDS_PORT}
 
-  rapids-zookeeper:
+  zookeeper:
     image: zookeeper:3.5
     networks:
       - core-rapids-internal-network
-      - core-rapids-network
-
-  results:
-    image: confluentinc/cp-kafka:5.4.1
-    depends_on:
-      - results-zookeeper
-    environment:
-      KAFKA_ADVERTISED_LISTENERS: INTERNAL://:${CORE_RESULTS_INTERNAL_PORT},EXTERNAL://:${CORE_RESULTS_PORT}
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_DELETE_TOPIC_ENABLE: 'true'
-      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-      KAFKA_LISTENERS: INTERNAL://:${CORE_RESULTS_INTERNAL_PORT},EXTERNAL://:${CORE_RESULTS_PORT}
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_ZOOKEEPER_CONNECT: ${CORE_RESULTS_ZOOKEEPER_HOST}:${CORE_RESULTS_ZOOKEEPER_PORT}
-    networks:
-      - core-results-internal-network
-      - core-results-network
-    ports:
-      - ${CORE_RESULTS_PORT}:${CORE_RESULTS_PORT}
-
-  results-zookeeper:
-    image: zookeeper:3.5
-    networks:
-      - core-results-internal-network
 
 networks:
   core-rapids-internal-network: {}
   core-rapids-network:
     name: core-rapids-network
-  core-results-internal-network: {}
-  core-results-network:
-    name: core-results-network
